@@ -1,8 +1,19 @@
-Project for VRRP Demo.
+Project for SaltStack demo
 
 1. clone repo
 2. vagrant up
-3. curl 192.168.56.200 - look at response (from server 1 with name deb1)
-4. vagrant halt deb1
-5. curl 192.168.56.200 - look at response (from server 2 with name deb2)
+3. vagrant ssh master
+4. sudo salt-key -L
+   Search for key "minion" in "Unaccepted Keys"
+5. sudo salt-key -a minion
+6. sudo salt-key -L
+   Search for key "minion" in "Accepted Keys"
+7. sudo salt "minion" state.apply
+   This applies state site.sls to minion server.
+8. curl http://192.168.1.12
+   This shows you http page that was deployed in step 7.
 
+9. vagrant ssh minion
+10. sudo iptables -L
+    This shows you a iptables settings that was deployed in step 7. 
+    
