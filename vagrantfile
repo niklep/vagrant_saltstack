@@ -1,32 +1,35 @@
+box_version = "10.20210829.1"
+
 Vagrant.configure("2") do |config|
-
-  config.vm.provider :virtualbox do |v|
-    v.memory = 512
-    v.cpus = 1
-  end
-
+  
   config.vm.define "master" do |master|
+    master.vm.provider "virtualbox" do |vb|
+      vb.memory = 512
+      vb.cpus = 1
+    end
+    master.vm.synced_folder "./", "/vagrant"
     master.vm.box = "debian/buster64"
+    master.vm.box_version = box_version
     master.vm.hostname = "master"
     master.vm.network "private_network", ip: "192.168.1.11",
       virtualbox__intnet: true
     master.vm.provision "shell", path: "install_master.sh"
-#    master.vm.provision "file", source: "master", destination: "/home/vagrant/salt/etc/master"
     master.vm.provision "shell", path: "srv_master.sh"
-#    master.vm.provision "file", source: "site.sls", destination: "/home/vagrant/salt/srv/site.sls"
-#    master.vm.provision "file", source: "top.sls", destination: "/home/vagrant/salt/srv/top.sls"
-#    master.vm.provision "file", source: "index.html.jinja", destination: "/home/vagrant/salt/srv/files/index.html.jinja"
-#    master.vm.provision "file", source: "nginx.conf", destination: "/home/vagrant/salt/srv/files/nginx.conf"
     master.vm.provision "shell", path: "config_services_master.sh"
   end
 
   config.vm.define "minion" do |minion|
+    minion.vm.provider "virtualbox" do |vb|
+      vb.memory = 512
+      vb.cpus = 1
+    end
+    minion.vm.synced_folder "./", "/vagrant"
     minion.vm.box = "debian/buster64"
+    minion.vm.box_version = box_version
     minion.vm.hostname = "minion"
     minion.vm.network "private_network", ip: "192.168.1.12",
       virtualbox__intnet: true
     minion.vm.provision "shell", path: "install_minion.sh"
-#    minion.vm.provision "file", source: "minion", destination: "/home/vagrant/salt/etc/minion"
     minion.vm.provision "shell", path: "config_services_minion.sh"
   end
 
