@@ -1,7 +1,6 @@
 nginx:
   pkg.installed:
     - name: nginx
-    - version: 1.20.1-1~buster
 
   service.running:
     - watch:

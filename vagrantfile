@@ -11,12 +11,12 @@ Vagrant.configure("2") do |config|
     master.vm.network "private_network", ip: "192.168.1.11",
       virtualbox__intnet: true
     master.vm.provision "shell", path: "install_master.sh"
-    master.vm.provision "file", source: "master", destination: "/home/vagrant/salt/etc/master"
+#    master.vm.provision "file", source: "master", destination: "/home/vagrant/salt/etc/master"
     master.vm.provision "shell", path: "srv_master.sh"
-    master.vm.provision "file", source: "site.sls", destination: "/home/vagrant/salt/srv/site.sls"
-    master.vm.provision "file", source: "top.sls", destination: "/home/vagrant/salt/srv/top.sls"
-    master.vm.provision "file", source: "index.html.jinja", destination: "/home/vagrant/salt/srv/files/index.html.jinja"
-    master.vm.provision "file", source: "nginx.conf", destination: "/home/vagrant/salt/srv/files/nginx.conf"
+#    master.vm.provision "file", source: "site.sls", destination: "/home/vagrant/salt/srv/site.sls"
+#    master.vm.provision "file", source: "top.sls", destination: "/home/vagrant/salt/srv/top.sls"
+#    master.vm.provision "file", source: "index.html.jinja", destination: "/home/vagrant/salt/srv/files/index.html.jinja"
+#    master.vm.provision "file", source: "nginx.conf", destination: "/home/vagrant/salt/srv/files/nginx.conf"
     master.vm.provision "shell", path: "config_services_master.sh"
   end
 
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
     minion.vm.network "private_network", ip: "192.168.1.12",
       virtualbox__intnet: true
     minion.vm.provision "shell", path: "install_minion.sh"
-    minion.vm.provision "file", source: "minion", destination: "/home/vagrant/salt/etc/minion"
+#    minion.vm.provision "file", source: "minion", destination: "/home/vagrant/salt/etc/minion"
     minion.vm.provision "shell", path: "config_services_minion.sh"
   end
 
